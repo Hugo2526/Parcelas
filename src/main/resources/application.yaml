@@ -2,7 +2,7 @@ spring:
   application:
     name: parcelas
   datasource:
-    url:  jdbc:mariadb://localhost:3308/ejemplo
+    url:  jdbc:mariadb://localhost:3306/ejemplo
     username: usuario
     password: usuario
   jpa:
