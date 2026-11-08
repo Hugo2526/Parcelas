@@ -32,6 +32,7 @@ public class ParcelaController {
     //Muestra el detalle de una parcela al buscarla por ID
     @GetMapping("/{id}")
     public String detalle(@PathVariable Long id, Model model) {
+        Parcela parcela = parcelaService.buscarPorId(id);
         model.addAttribute("parcela", parcelaService.buscarPorId(id));
         return "parcelas/detalle";
     }
