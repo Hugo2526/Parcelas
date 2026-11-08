@@ -1,6 +1,7 @@
 package com.daw.parcelas.service;
 
 import com.daw.parcelas.model.Parcela;
+import com.daw.parcelas.model.TipoCultivo;
 import com.daw.parcelas.repository.ParcelaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -50,4 +51,29 @@ public class ParcelaServiceImpl implements ParcelaService {
         parcelaRepository.deleteById(id);
 
     }
+
+    // Superficie total
+    @Override
+    public double superficieTotal() {
+
+        return parcelaRepository.findAll()
+                .stream()
+                .mapToDouble(Parcela::getSuperficie)
+                .sum();
+    }
+
+    // Filtrar por cultivo
+    @Override
+    public List<Parcela> findByTipoCultivo(TipoCultivo tipoCultivo) {
+
+        return parcelaRepository.findByTipoCultivo(tipoCultivo);
+
+    }
+
+    // Ordenar por nombre
+    @Override
+    public List<Parcela> findAllByOrderByNombreAsc() {
+        return parcelaRepository.findAllByOrderByNombreAsc();
+    }
+
 }
