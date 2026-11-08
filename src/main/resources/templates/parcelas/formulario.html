@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Listas de Parcelas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        :root {
+            --color1: #14171C;
+            --color2: #222831;
+            --color3: #D49A6A;
+            --color4: #B8794F;
+            --color5: #F1F1EF;
+            --color6: #A0A6AF;
+            --color7: #DC3545;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--color1);
+            color: var(--color5);
+        }
+
+        header {
+            background-color: var(--color2);
+        }
+
+        .logo {
+            color: var(--color3);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo:hover {
+            color: var(--color4);
+        }
+
+        .logo svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .nav {
+            text-decoration: none;
+            color: var(--color5);
+            font-size: 1rem;
+        }
+
+        .nav:hover {
+            color: var(--color3);
+        }
+
+        .btn {
+            background-color: var(--color3);
+            color: var(--color1);
+            border: none;
+            cursor: pointer;
+        }
+
+
+        .btn:hover {
+            background-color: var(--color4);
+        }
+
+
+
+
+        .card-title {
+            color: var(--color3);
+        }
+
+        section {
+            background-color: var(--color2);
+        }
+
+        .table th {
+            color: var(--color3);
+        }
+
+        .table td {
+            color: var(--color5);
+        }
+
+
+        footer {
+            background-color: var(--color2);
+        }
+        footer p {
+            color: var(--color6);
+        }
+
+        .card {
+            background-color: var(--color2);
+            border: 1px solid var(--color3);
+        }
+
+
+
+
+        input,select {
+            background-color: var(--color2)!important;
+            color: var(--color5)!important;
+            border: 1px solid var(--color3)!important;
+            border-radius: 4px!important;
+            padding: 0.5rem!important;
+        }
+        input:focus,select:focus {
+            outline: none!important;
+            border-color: var(--color4)!important;
+            box-shadow: 0 0 5px var(--color4)!important;
+        }
+
+    </style>
+</head>
+<body class="mx-auto container-xl">
+
+
+<!--  start  header-->
+<header class="h-25 d-block d-md-flex justify-content-between align-items-center p-3">
+
+    <a th:href="@{/parcelas}" class="logo d-flex align-items-center text-decoration-none">
+        <svg class="me-2" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+             viewBox="0 0 16 16">
+            <path d="M8.27 8.074c.893 0 1.419-.545 1.419-1.488s-.526-1.482-1.42-1.482H6.778v2.97z"></path>
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.5 4.002h2.962C10.045 4.002 11 5.104 11 6.586c0 1.494-.967 2.578-2.55 2.578H6.784V12H5.5z"></path>
+        </svg>
+        <span>Parcelas</span>
+    </a>
+
+    <ul class="d-flex flex-column d-md-flex mt-3 mt-md-0 align-items-md-center list-unstyled mb-0">
+        <li><a  th:href="@{/parcelas}" class="nav">Parcelas</a></li>
+    </ul>
+
+</header>
+<!--  end  header-->
+
+
+
+
+<main class="mt-4">
+    <section class="p-3 d-flex justify-content-between align-items-center">
+
+        <!-- start link Editar Parcela si hay objeto -->
+        <h2 th:if="${parcela.getId() != null}" class="card-title">Editar Parcela</h2>
+        <!-- end link Editar Parcela si hay objeto -->
+
+        <!-- start link Editar Parcela si no hay objeto -->
+        <h2 th:unless="${parcela.getId() != null}" class="card-title">Nueva Parcela</h2>
+        <!-- end link Editar Parcela si no hay objeto -->
+
+        <a  th:href="@{/parcelas}" class="btn btn-secondary">Volver</a>
+    </section>
+
+
+
+
+    <form th:action="@{/parcelas}" th:object="${parcela}" th:method="post" class="p-3">
+
+        <input th:if="${parcela.getId() != null}" type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input th:field="*{nombre}" type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="ubicacion" class="form-label">Ubicación:</label>
+            <input th:field="*{ubicacion}" type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="superficie" class="form-label">Superficie (ha):</label>
+            <input th:field="*{superficie}" type="number" step="0.01" min="0.01" class="form-control" id="superficie" name="superficie" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="tipoCultivo" class="form-label">Tipo de cultivo:</label>
+            <select th:field="*{tipoCultivo}"  class="form-select" id="tipoCultivo" name="tipoCultivo" required>
+
+                <option value="" selected></option>
+                <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo.etiqueta}">
+                </option>
+            </select>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a th:href="@{/parcelas}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+
+    </form>
+
+
+
+</main>
+
+
+
+
+
+
+
+<!--  start  footer-->
+<footer class="h-25 mt-4">
+    <p class="text-center p-3">© 2026 - Diseñado por Mohamed Y Hugo</p>
+</footer>
+<!--  end  footer-->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
