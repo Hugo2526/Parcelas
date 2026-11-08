@@ -140,7 +140,14 @@
 
 <main class="mt-4">
     <section class="p-3 d-flex justify-content-between align-items-center">
-        <h2 class="card-title">Nueva Parcela</h2>
+
+        <!-- start link Editar Parcela si hay objeto -->
+        <h2 th:if="${parcela.getId() != null}" class="card-title">Editar Parcela</h2>
+        <!-- end link Editar Parcela si hay objeto -->
+
+        <!-- start link Editar Parcela si no hay objeto -->
+        <h2 th:unless="${parcela.getId() != null}" class="card-title">Nueva Parcela</h2>
+        <!-- end link Editar Parcela si no hay objeto -->
 
         <a  th:href="@{/parcelas}" class="btn btn-secondary">Volver</a>
     </section>
@@ -149,6 +156,8 @@
 
 
     <form th:action="@{/parcelas}" th:object="${parcela}" th:method="post" class="p-3">
+
+        <input th:if="${parcela.getId() != null}" type="hidden" th:field="*{id}">
 
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
