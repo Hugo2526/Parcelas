@@ -20,7 +20,11 @@ public class ParcelaController {
     //Mostrar todas las parcelas
     @GetMapping
     public String listar(Model model) {
+
         model.addAttribute("parcelas", parcelaService.listarTodas());
+        model.addAttribute("superficieTotal", parcelaService.superficieTotal());
+        model.addAttribute("tipos", TipoCultivo.values());
+
         return "parcelas/lista"; // -> temlates/parcelas/lista.html
     }
 
@@ -55,5 +59,42 @@ public class ParcelaController {
     public String eliminar(@PathVariable Long id) {
         parcelaService.eliminar(id);
         return "redirect:/parcelas";
+    }
+
+    //Muestra las parcelas filtradas por tipo de cultivo
+    @GetMapping("/cultivo/{tipo}")
+    public String filtrarPorCultivo(@PathVariable String tipo, Model model) {
+
+        model.addAttribute("parcelas", parcelaService.findByTipoCultivo(TipoCultivo.valueOf(tipo)));
+        model.addAttribute("superficieTotal", parcelaService.superficieTotal());
+        model.addAttribute("tipos", TipoCultivo.values());
+
+        return "parcelas/lista";
+
+    }
+
+    //Muestra las parcelas ordenado por nombre asc
+    @GetMapping("/asc")
+    public String findAllByOrderByNombreAsc(Model model) {
+        model.addAttribute("parcelas", parcelaService.findAllByOrderByNombreAsc());
+        model.addAttribute("superficieTotal", parcelaService.superficieTotal());
+        model.addAttribute("tipos", TipoCultivo.values());
+        return "parcelas/lista";
+    }
+
+
+    //edición de hay una parcela existente
+    @GetMapping("/{id}/editar")
+    public String editar(@PathVariable Long id, Model model) {
+
+        Parcela parcela = parcelaService.buscarPorId(id);
+
+        if (parcela == null) {
+            return "redirect:/parcelas";
+        }
+
+        model.addAttribute("parcela", parcela);
+        model.addAttribute("tipos", TipoCultivo.values());
+        return "parcelas/formulario";
     }
 }
