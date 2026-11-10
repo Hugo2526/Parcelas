@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Panel')}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="d-flex">
+    <aside th:replace="~{fragments/layout :: sidebar('dashboard')}"></aside>
+
+    <main class="app-main flex-grow-1 p-3 p-lg-4">
+
+        <div class="page-header d-flex flex-wrap justify-content-between align-items-end gap-2">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb"><li class="breadcrumb-item active">Panel</li></ol>
+                </nav>
+                <h1>Panel general</h1>
+            </div>
+            <span class="text-secondary small">
+        <i class="bi bi-clock me-1"></i>Actualizado:
+        <span th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm')}">09/11/2026 19:40</span>
+      </span>
+        </div>
+
+        <div class="row g-3">
+
+        </div>
+
+        <footer th:replace="~{fragments/layout :: footer}"></footer>
+    </main>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
