@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title th:text="${parcela.nombre}"></title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
+ <!DOCTYPE html>
+    <html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments/layout :: head('Panel')}"></head>
 
     <style>
         :root {
@@ -122,81 +114,64 @@
 
     </style>
 
-</head>
+    <body>
+
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+    <div class="d-flex">
+        <aside th:replace="~{fragments/layout :: sidebar('dashboard')}"></aside>
+
+        <main class="app-main flex-grow-1 p-3 p-lg-4">
+
+            <div class="page-header d-flex flex-wrap justify-content-between align-items-end gap-2">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb"><li class="breadcrumb-item active">Panel</li></ol>
+                    </nav>
+                    <h1>Panel general</h1>
+                </div>
+                <span class="text-secondary small">
+        <i class="bi bi-clock me-1"></i>Actualizado:
+        <span th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm')}">09/11/2026 19:40</span>
+      </span>
+            </div>
+
+            <div class="row g-3">
+                <section class="p-3 card-body">
 
 
-<body class="mx-auto container-xl">
+                    <h5 class="card-title fs-5" th:text="${parcela.nombre}"></h5>
 
-<!--  start  header-->
-<header class="h-25 d-block d-md-flex justify-content-between align-items-center p-3">
+                    <p class="card-text mt-2">
+                        <strong>ID:</strong>
+                        <span th:text="${parcela.id}"></span>
+                    </p>
 
-    <a th:href="@{/parcelas}" class="logo d-flex align-items-center text-decoration-none">
-        <svg class="me-2" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-             viewBox="0 0 16 16">
-            <path d="M8.27 8.074c.893 0 1.419-.545 1.419-1.488s-.526-1.482-1.42-1.482H6.778v2.97z"></path>
-            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.5 4.002h2.962C10.045 4.002 11 5.104 11 6.586c0 1.494-.967 2.578-2.55 2.578H6.784V12H5.5z"></path>
-        </svg>
-        <span>Parcelas</span>
-    </a>
-
-    <ul class="d-flex flex-column d-md-flex mt-3 mt-md-0 align-items-md-center list-unstyled mb-0">
-        <li><a th:href="@{/parcelas}" class="nav">Parcelas</a></li>
-    </ul>
-
-</header>
-<!--  end  header-->
-
-<main class="mt-4">
-
-    <!--  start  nombre de la parcela-->
-    <section class="p-3 d-flex justify-content-between align-items-center">
-        <h2 class="card-title">Detalles de la parcela</h2>
-        <a th:href="@{/parcelas}" class="btn btn-secondary">Volver</a>
-    </section>
-    <!--  end  nombre de la parcela-->
+                    <p class="card-text mt-2">
+                        <strong>Ubicación:</strong>
+                        <span th:text="${parcela.ubicacion}"></span>
+                    </p>
 
 
-    <!--  start  parte de de la tarjeta-->
-    <section class="p-3 card-body">
+                    <p class="card-text mt-2">
+                        <strong>Superficie:</strong>
+                        <span th:text="${parcela.superficie}"></span>
+                    </p>
 
 
-        <h5 class="card-title fs-5" th:text="${parcela.nombre}"></h5>
+                    <p class="card-text mt-2">
+                        <strong>Cultivo:</strong>
+                        <span class="badge fs-6" th:text="${parcela.tipoCultivo?.etiqueta}"></span>
+                    </p>
+                </section>
 
-        <p class="card-text mt-2">
-            <strong>ID:</strong>
-            <span th:text="${parcela.id}"></span>
-        </p>
+            </div>
 
-        <p class="card-text mt-2">
-            <strong>Ubicación:</strong>
-            <span th:text="${parcela.ubicacion}"></span>
-        </p>
+            <footer th:replace="~{fragments/layout :: footer}"></footer>
+        </main>
+    </div>
 
+    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+    </body>
+    </html>
 
-        <p class="card-text mt-2">
-            <strong>Superficie:</strong>
-            <span th:text="${parcela.superficie}"></span>
-        </p>
-
-
-        <p class="card-text mt-2">
-            <strong>Cultivo:</strong>
-            <span class="badge fs-6" th:text="${parcela.tipoCultivo?.etiqueta}"></span>
-        </p>
-    </section>
-    <!--  end  parte de de la tarjeta-->
-
-
-</main>
-
-<!--  start  footer-->
-<footer class="h-25 mt-4">
-    <p class="text-center p-3">© 2026 - Diseñado por Mohamed Y Hugo</p>
-</footer>
-<!--  end  footer-->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-</body>
-</html>
