@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('Panel')}"></head>
+<head th:replace="~{fragmentos/layout :: head('Panel')}"></head>
 <style>
     :root {
         --color1: #14171C;
@@ -132,10 +132,10 @@
 </style>
 <body>
 
-<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<nav th:replace="~{fragmentos/layout :: navbar}"></nav>
 
 <div class="d-flex">
-    <aside th:replace="~{fragments/layout :: sidebar('dashboard')}"></aside>
+    <aside th:replace="~{fragmentos/layout :: sidebar('dashboard')}"></aside>
 
     <main class="app-main flex-grow-1 p-3 p-lg-4">
 
@@ -286,10 +286,10 @@
 
         </div>
 
-        <footer th:replace="~{fragments/layout :: footer}"></footer>
+        <footer th:replace="~{fragmentos/layout :: footer}"></footer>
     </main>
 </div>
 
-<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<th:block th:replace="~{fragmentos/layout :: scripts}"></th:block>
 </body>
 </html>
