@@ -4,12 +4,11 @@ import com.daw.parcelas.controller.RecursoNoEncontradoException;
 import com.daw.parcelas.model.Sensor;
 import com.daw.parcelas.model.TipoSensor;
 import com.daw.parcelas.repository.SensorRepository;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class SensorServiceImpl implements SensorService {
